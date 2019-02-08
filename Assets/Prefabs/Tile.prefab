@@ -40,6 +40,8 @@ GameObject:
   - component: {fileID: 33333126343085254}
   - component: {fileID: 23853848957149448}
   - component: {fileID: 65337800016973112}
+  - component: {fileID: 95067168668895352}
+  - component: {fileID: 114578048739209470}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -67,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1701740208895818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.3568864, y: 0.16533184, z: -5.363776}
   m_LocalScale: {x: 1, y: 1, z: 0.1}
   m_Children:
   - {fileID: 4426031973243838}
@@ -168,7 +170,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65950479786838082
 BoxCollider:
@@ -182,3 +184,45 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &95067168668895352
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1701740208895818}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 640c0e699b7fa104c84688ce7c89389a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114578048739209470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1701740208895818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352fcc516b78e554bb71324970589cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  food: 4
+  foodTextures:
+  - {fileID: 2800000, guid: 61f52d2bd2ac4674aba7f74b515ba5d6, type: 3}
+  - {fileID: 2800000, guid: c1c2d8e034766494f84a93c3accd03f2, type: 3}
+  - {fileID: 2800000, guid: 10d1b6d0772fc7d4496ae1307f472250, type: 3}
+  - {fileID: 2800000, guid: a28ec3f3fbb759945a7d91c5795fdb90, type: 3}
+  - {fileID: 2800000, guid: 328aaa1c1f2354149a901716c6ac4454, type: 3}
+  - {fileID: 2800000, guid: ecb60416f809bc44d820d04a169769fa, type: 3}
+  - {fileID: 2800000, guid: 5813ff16e437fd54b89cb37aaa51385c, type: 3}
+  - {fileID: 2800000, guid: 511e864816ef8574ca9b270ff3aaea68, type: 3}
+  selectTextures:
+  - {fileID: 2100000, guid: 3c3685961a9d314489affdded9ef0860, type: 2}
+  - {fileID: 2100000, guid: 62578c737162f4b4385ca6f93faf66df, type: 2}

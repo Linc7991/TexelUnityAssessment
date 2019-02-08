@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GridGenerator.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/link7/Documents/TexelUnityAssessment/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

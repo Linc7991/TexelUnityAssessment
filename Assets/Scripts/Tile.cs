@@ -43,7 +43,7 @@ public class Tile : MonoBehaviour {
     }
 
 
-    private void Awake()
+    private void Start()
     {
         //Set the texture of the face to the index of food found in foodTextures.
         face = transform.GetChild(0).GetComponent<Renderer>().material;
