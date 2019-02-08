@@ -10,7 +10,8 @@ public class GridGenerator : MonoBehaviour {
     GameObject[,] tiles;
     public int gridSize;
 
-    private void Start()
+    //Generates a grid based on gridSize.
+    public void Generate()
     {
         //An odd number gridSize cannot have an even amount of tiles.
         if (gridSize % 2 == 1)
@@ -18,12 +19,7 @@ public class GridGenerator : MonoBehaviour {
             Debug.LogWarning("Grid Size must be an even number.");
             gridSize--;
         }
-        Generate();
-    }
 
-    //Generates a grid based on gridSize.
-    public void Generate()
-    {
         tiles = new GameObject[gridSize, gridSize];
         int numOfFood = System.Enum.GetValues(typeof(FoodType)).Length;
         int tilePairs = gridSize * gridSize / 2;

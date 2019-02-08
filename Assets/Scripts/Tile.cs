@@ -42,6 +42,39 @@ public class Tile : MonoBehaviour {
         }
     }
 
+    //Rotate to a specified angle
+    public IEnumerator Turn(float angle)
+    {
+            while (transform.rotation.y != angle)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, angle, 0), Time.deltaTime * 10);
+                yield return new WaitForEndOfFrame();
+            }
+    }
+
+    //Select the tile
+    public void Select()
+    {
+        transform.GetChild(0).GetComponent<Renderer>().material = selectTextures[1];
+        anim.SetBool("Shake", true);
+        StartCoroutine(Turn(180));
+        selected = true;
+    }
+
+    //Unselect the tile
+    public void Unselect()
+    {
+        transform.GetChild(0).GetComponent<Renderer>().material = selectTextures[0];
+        anim.SetBool("Shake", false);
+        StartCoroutine(Turn(0));
+        selected = false;
+    }
+
+    /***************************
+     * 
+     *      Events
+     * 
+     **************************/
 
     private void Start()
     {
@@ -55,13 +88,10 @@ public class Tile : MonoBehaviour {
     private void OnMouseDown()
     {
         Debug.Log("Mouse Clicked.");
-        //If the back of the tile is unselected, change to selected.
-        if (transform.GetChild(0).GetComponent<Renderer>().sharedMaterial == selectTextures[0])
+        //If the tile is unselected, change to selected.
+        if (!selected)
         {
-            transform.GetChild(0).GetComponent<Renderer>().material = selectTextures[1];
-            anim.SetBool("Shake", true);
-            StartCoroutine(Turn(true));
-            selected = true;
+            Select();
         }
     }
 
@@ -80,24 +110,6 @@ public class Tile : MonoBehaviour {
         }
     }
 
-    public IEnumerator Turn(bool faceUp)
-    {
-        if (faceUp)
-        {
-            while (transform.rotation.y < 180)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180, 0), Time.deltaTime * 10);
-                yield return new WaitForEndOfFrame();
-            }
-        }
-        else
-        {
-            while (transform.rotation.y > 0)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 10);
-                yield return new WaitForEndOfFrame();
-            }
-        }
-    }
+
 
 }
