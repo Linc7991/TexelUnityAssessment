@@ -46,20 +46,21 @@ public class Tile : MonoBehaviour {
     private void Start()
     {
         //Set the texture of the face to the index of food found in foodTextures.
-        face = transform.GetChild(0).GetComponent<Renderer>().material;
+        face = transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
         face.mainTexture = foodTextures[(int)food];
 
-        anim = GetComponent<Animator>();
+        anim = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void OnMouseDown()
     {
         Debug.Log("Mouse Clicked.");
         //If the back of the tile is unselected, change to selected.
-        if (GetComponent<Renderer>().sharedMaterial == selectTextures[0])
+        if (transform.GetChild(0).GetComponent<Renderer>().sharedMaterial == selectTextures[0])
         {
-            GetComponent<Renderer>().material = selectTextures[1];
+            transform.GetChild(0).GetComponent<Renderer>().material = selectTextures[1];
             anim.SetBool("Shake", true);
+            StartCoroutine(Turn(true));
             selected = true;
         }
     }
@@ -76,6 +77,26 @@ public class Tile : MonoBehaviour {
         if (!selected)
         {
             anim.SetBool("Shake", false);
+        }
+    }
+
+    public IEnumerator Turn(bool faceUp)
+    {
+        if (faceUp)
+        {
+            while (transform.rotation.y < 180)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180, 0), Time.deltaTime * 10);
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        else
+        {
+            while (transform.rotation.y > 0)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 10);
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 
