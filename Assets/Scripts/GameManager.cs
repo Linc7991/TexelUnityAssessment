@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
     public Text matchesText;
     public Button ResetButton;
     public Button StartButton;
+    public GameObject MouseBlock;
 
     /************************
      * 
@@ -33,24 +34,29 @@ public class GameManager : MonoBehaviour {
      ***********************/
 
     //Sets collected tile to tile variables.
-    public void SetTile(Tile tile)
+    public IEnumerator SetTile(Tile tile)
     {
         if (tile1 == null)
         {
             tile1 = tile;
+            tile.Select();
         }
-        else
+        else if (tile != tile1)
         {
             tile2 = tile;
+            tile.Select();
             matches++;
 
             //Check if the tiles match
             if (tile1.food == tile2.food)
             {
+                MouseBlock.SetActive(true);
+                yield return new WaitForSeconds(1f);
                 tile1.Vanish();
                 tile1 = null;
                 tile2.Vanish();
                 tile2 = null;
+                MouseBlock.SetActive(false);
 
                 if (FindObjectsOfType<Tile>().Length == 2)
                 {
@@ -59,11 +65,15 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
+                MouseBlock.SetActive(true);
+                yield return new WaitForSeconds(1f);
+
                 //Start over
                 tile1.Unselect();
                 tile1 = null;
                 tile2.Unselect();
                 tile2 = null;
+                MouseBlock.SetActive(false);
             }
         }
 
@@ -96,7 +106,11 @@ public class GameManager : MonoBehaviour {
 
         timerActive = false;
         minutesPassed = Mathf.FloorToInt(secondsPassed / 60);
-        timerText.text = minutesPassed + ":" + (secondsPassed % 60).ToString("00");
+
+        //Set texts
+        timerText.text = "Time: " + minutesPassed + ":" + (secondsPassed % 60).ToString("00");
+        matchesText.text = "Matches: " + matches;
+        gamesText.text = "Games this session: " + games;
     }
 
     /*******************************
@@ -112,9 +126,9 @@ public class GameManager : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                if (hit.collider.GetComponent<Tile>() != null)
+                if (hit.collider.GetComponent<Tile>() != null && tile1 == null || tile2 == null)
                 {
-                    SetTile(hit.collider.GetComponent<Tile>());
+                    StartCoroutine(SetTile(hit.collider.GetComponent<Tile>()));
                 }
             }
         }

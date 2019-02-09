@@ -45,16 +45,26 @@ public class Tile : MonoBehaviour {
     //Rotate to a specified angle
     public IEnumerator Turn(float angle)
     {
-            while (transform.rotation.y != angle)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, angle, 0), Time.deltaTime * 10);
-                yield return new WaitForEndOfFrame();
-            }
+        Vector3 startRotation = transform.eulerAngles;
+        Vector3 endRotation = new Vector3(0, angle, 0);
+        float progress = 0;
+
+        while (transform.eulerAngles.y != angle)
+        {
+            progress += Time.deltaTime * 10;
+            transform.eulerAngles = Vector3.Slerp(startRotation, endRotation, progress);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     //Select the tile
     public void Select()
     {
+        if (selected)
+        {
+            return;
+        }
         transform.GetChild(0).GetComponent<Renderer>().material = selectTextures[1];
         anim.SetBool("Shake", true);
         StartCoroutine(Turn(180));
@@ -83,16 +93,6 @@ public class Tile : MonoBehaviour {
         face.mainTexture = foodTextures[(int)food];
 
         anim = transform.GetChild(0).GetComponent<Animator>();
-    }
-
-    private void OnMouseDown()
-    {
-        Debug.Log("Mouse Clicked.");
-        //If the tile is unselected, change to selected.
-        if (!selected)
-        {
-            Select();
-        }
     }
 
     private void OnMouseEnter()
