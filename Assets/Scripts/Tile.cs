@@ -32,13 +32,14 @@ public class Tile : MonoBehaviour {
     public void Vanish()
     {
         //If "Spin" has already been set to true, destroy self
-        if (anim.GetBool("Spin"))
+        if (GetComponent<Animator>().GetBool("Spin") == true)
         {
             Destroy(gameObject);
         }
         else
         {
-            anim.SetBool("Spin", true);
+            GetComponent<Animator>().SetBool("Spin", true);
+            GetComponent<Animator>().enabled = true;
         }
     }
 

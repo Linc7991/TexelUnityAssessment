@@ -23,9 +23,8 @@ public class GameManager : MonoBehaviour {
     public Text timerText;
     public Text gamesText;
     public Text matchesText;
-    public Button ResetButton;
-    public Button StartButton;
-    public GameObject MouseBlock;
+    public Button resetButton;
+    public Button startButton;
 
     /************************
      * 
@@ -50,13 +49,11 @@ public class GameManager : MonoBehaviour {
             //Check if the tiles match
             if (tile1.food == tile2.food)
             {
-                MouseBlock.SetActive(true);
                 yield return new WaitForSeconds(1f);
                 tile1.Vanish();
                 tile1 = null;
                 tile2.Vanish();
                 tile2 = null;
-                MouseBlock.SetActive(false);
 
                 if (FindObjectsOfType<Tile>().Length == 2)
                 {
@@ -65,7 +62,6 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
-                MouseBlock.SetActive(true);
                 yield return new WaitForSeconds(1f);
 
                 //Start over
@@ -73,7 +69,6 @@ public class GameManager : MonoBehaviour {
                 tile1 = null;
                 tile2.Unselect();
                 tile2 = null;
-                MouseBlock.SetActive(false);
             }
         }
 
@@ -88,7 +83,8 @@ public class GameManager : MonoBehaviour {
         games++;
 
         //Disable UI Elements
-        StartButton.gameObject.SetActive(false);
+        startButton.gameObject.SetActive(false);
+        resetButton.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
         gamesText.gameObject.SetActive(false);
         matchesText.gameObject.SetActive(false);
@@ -100,6 +96,7 @@ public class GameManager : MonoBehaviour {
     //End of match
     public void EndGame()
     {
+        resetButton.gameObject.SetActive(true);
         timerText.gameObject.SetActive(true);
         gamesText.gameObject.SetActive(true);
         matchesText.gameObject.SetActive(true);
