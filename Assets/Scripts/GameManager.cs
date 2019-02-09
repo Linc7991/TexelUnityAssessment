@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour {
             //Check if the tiles match
             if (tile1.food == tile2.food)
             {
+                GetComponent<AudioSource>().Play();
                 yield return new WaitForSeconds(1f);
                 tile1.Vanish();
                 tile1 = null;
